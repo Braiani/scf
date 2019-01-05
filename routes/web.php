@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/inicio', 'HomeController@index')->name('home');
+    Route::get('/{ano}', 'HomeController@ano')->name('consulta.ano');
+    Route::get('/{ano}/{mes}', 'HomeController@mes')->name('consulta.mes');
+});
