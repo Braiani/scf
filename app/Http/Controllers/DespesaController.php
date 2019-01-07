@@ -12,9 +12,17 @@ class DespesaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $ano, $mes)
     {
-        //
+        $query = Despesa::whereYear('data', $ano)->whereMonth('data', $mes + 1);
+        $total = $query->sum('valor');
+        $despesas = $query->get();
+        return view('despesas')->with([
+            'ano' => $ano,
+            'mes' => $mes,
+            'despesas' => $despesas,
+            'total' => $total
+        ]);
     }
 
     /**
@@ -22,9 +30,9 @@ class DespesaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $data)
     {
-        //
+        return view('despesas.add')->with(['data' => $data]);
     }
 
     /**
@@ -35,18 +43,24 @@ class DespesaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Despesa  $despesa
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Despesa $despesa)
-    {
-        //
+        $validated = $request->validate([
+            'data.*' => 'required|date|after:2013-01-01',
+            'descricao.*' => 'required',
+            'valor.*' => 'required'
+        ]);
+        
+        foreach ($validated['data'] as $key => $valor) {
+            $despesa = Despesa::create([
+                'data' => $valor,
+                'descricao' => $validated['descricao'][$key],
+                'valor' => number_format($validated['valor'][$key], 2, '.', '')
+            ]);
+        }
+        $request->session()->flash('sucesso', 'Despesa(s) salva com sucesso!');
+        return redirect()->route('consulta.despesa', [
+            'ano' => $despesa->data->format('Y'),
+            'mes' => $despesa->data->format('n') - 1
+        ]);
     }
 
     /**
@@ -55,9 +69,14 @@ class DespesaController extends Controller
      * @param  \App\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Despesa $despesa)
+    public function edit($despesa)
     {
-        //
+        $despesas = Despesa::whereDate('data', $despesa)->get();
+
+        return view('despesas.edit')->with([
+            'despesas' => $despesas,
+            'data' => $despesa
+        ]);
     }
 
     /**
@@ -67,9 +86,9 @@ class DespesaController extends Controller
      * @param  \App\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Despesa $despesa)
+    public function update(Request $request, $despesa)
     {
-        //
+        return $request;
     }
 
     /**
@@ -78,8 +97,17 @@ class DespesaController extends Controller
      * @param  \App\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Despesa $despesa)
+    public function destroy(Request $request, Despesa $despesa)
     {
-        //
+        $ano = $despesa->data->format('Y');
+        $mes = $despesa->data->format('n') - 1;
+
+        $despesa->delete();
+
+        $request->session()->flash('sucesso', 'Despesa(s) excluída com sucesso!');
+        return redirect()->route('consulta.despesa', [
+            'ano' => $ano,
+            'mes' => $mes
+        ]);
     }
 }

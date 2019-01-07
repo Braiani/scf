@@ -1,3 +1,7 @@
+* {
+  font-family: sans-serif;
+}
+
 body {
   background-color: black;
   background-image: url("/img/bg.jpg");
@@ -12,25 +16,57 @@ body {
 }
 
 .card-header {
+  text-transform: uppercase;
+  text-decoration: none;
   text-align: center;
   font-size: 1.7em;
-  background-color: #dff9fb;
+  background-color: pink;
   border-bottom: 2px solid black;
 }
 
 .card-header,
 .card-body {
-  color: blue;
+  color: black;
 }
 
 .card-body input[type=email],
 .card-body input[type=password] {
-  color: blue;
+  color: violet;
 }
 
 .btn {
   border: 2px solid black;
   color: black;
+}
+
+.btn-pink {
+  background-color: violet;
+}
+
+.btn-hover:hover {
+  transition: 0.6;
+  margin-left: -1.5%;
+  padding: 3% 0;
+  width: 103%;
+  background-color: pink;
+}
+
+.btn-data {
+  margin-left: 33%;
+}
+
+.box-total {
+  font-size: 16px;
+  border: 2px solid black;
+  margin: 5%;
+  padding: 3%;
+  background-color: pink;
+}
+
+.btn-link:hover {
+  color: white;
+  text-decoration: none;
+  background-color: #686de0;
 }
 
 .img-logo {
@@ -40,12 +76,32 @@ body {
   border-radius: 50%;
 }
 
+.table {
+  background-color: white;
+}
+
+.table-responsive {
+  max-height: 600px;
+}
+
+.table-bordered thead,
+.table-bordered th,
+.table-bordered tr,
+.table-bordered td {
+  border: 2px solid black;
+}
+
 .table thead {
   background-color: lightgrey;
   text-align: center;
+  border-bottom: 3px solid black;
 }
 
 .table tbody .btn {
   margin: 1px;
+}
+
+hr {
+  border: 1px solid black;
 }
 

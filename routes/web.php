@@ -15,10 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/inicio', 'HomeController@index')->name('home');
-    Route::get('/{ano}', 'HomeController@ano')->name('consulta.ano');
-    Route::get('/{ano}/{mes}', 'HomeController@mes')->name('consulta.mes');
+    Route::group(['prefix' => 'consulta'], function () {
+        Route::get('/', 'HomeController@index')->name('consulta');
+        Route::put('/despesa/atualizar/{data}', 'DespesaController@update')->name('despesas.update');
+        Route::get('/despesa/editar/{data}', 'DespesaController@edit')->name('despesas.edit');
+        Route::get('/despesa/criar/{data}', 'DespesaController@create')->name('despesas.create');
+        Route::post('/despesa/criar', 'DespesaController@store')->name('despesas.store');
+        Route::delete('/despesa/{despesa}', 'DespesaController@destroy')->name('despesas.delete');
+        Route::get('/despesa/{ano}/{mes}', 'DespesaController@index')->name('consulta.despesa');
+    });
 });

@@ -12,21 +12,36 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $consulta = [
+            'ano' => null,
+            'mes' => null,
+            'inicio' => true
+        ];
+        if (isset($request->ano)) {
+            $consulta['inicio'] = false;
+            $consulta['mes'] = null;
+            $consulta['ano'] = $request->ano;
+        }
+        if (isset($request->mes)) {
+            $consulta['inicio'] = false;
+            $consulta['mes'] = $request->mes;
+            $consulta['ano'] = null;
+        }
+        return view('home')->with(['consulta' => $consulta]);
     }
     
-    public function ano(Request $request, $ano)
+    public function ano(Request $request)
     {
-        return view('mes')->with(['ano' => $ano]);
+        return view('mes')->with(['ano' => $request->ano]);
     }
 
-    public function mes(Request $request, $ano, $mes)
+    public function mes(Request $request)
     {
         return view('dia')->with([
-            'mes' => $mes,
-            'ano' => $ano
+            'mes' => $request->mes,
+            'ano' => $request->ano
         ]);
     }
 }
