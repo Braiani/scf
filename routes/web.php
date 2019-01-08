@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/despesa/atualizar/{data}', 'DespesaController@update')->name('despesas.update');
         Route::get('/despesa/editar/{data}', 'DespesaController@edit')->name('despesas.edit');
         Route::get('/despesa/criar/{data}', 'DespesaController@create')->name('despesas.create');
-        Route::post('/despesa/criar', 'DespesaController@store')->name('despesas.store');
+        Route::post('/despesa/criar{data}', 'DespesaController@store')->name('despesas.store');
         Route::delete('/despesa/{despesa}', 'DespesaController@destroy')->name('despesas.delete');
         Route::get('/despesa/{ano}/{mes}', 'DespesaController@index')->name('consulta.despesa');
     });

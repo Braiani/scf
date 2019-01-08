@@ -31,7 +31,8 @@
 											@foreach ($despesas as $despesa)
 												<tr>
 													<td>
-														<input type="date" name="data[]" class="form-control border-dark" value="{{ $despesa->data->format('Y-m-d') }}">
+														<input type="hidden" name="ids[]" value="{{ $despesa->id }}">
+														<p class="h3 text-center">{{ $despesa->data->format('d/m/Y') }}</p>
 													</td>
 													<td>
 														<input type="text" name="descricao[]" class="form-control border-dark" value="{{ $despesa->descricao }}" placeholder="Descreva a despesa">
@@ -66,12 +67,6 @@
 			<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalCenterTitle">Apagar despesa?</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
 						<div class="modal-body">
 							<p class="h3">Você tem certeza que deseja apagar essa despesa?</p>
 						</div>
@@ -98,7 +93,8 @@
 		return [
 			'<tr>' +
 				'<td>' +
-					'<input type="date" name="data[]" class="form-control border-dark" value="{{ $data }}" required>' +
+					'<input type="hidden" name="ids[]" value="0">' +
+					'<p class="h3 text-center">{{ $despesa->data->format('d/m/Y') }}</p>' +
 				'</td>' +
 				'<td>' +
 					'<input type="text" name="descricao[]" class="form-control border-dark" placeholder="Descreva a despesa"  required>' +

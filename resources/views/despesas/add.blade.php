@@ -25,7 +25,7 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<form action="{{ route('despesas.store') }}" method="post">
+							<form action="{{ route('despesas.store', $data) }}" method="post">
 								{{ csrf_field() }}
 								<div class="table-responsive">
 									<table class="table table-bordered table-hover">
@@ -38,7 +38,7 @@
 										<tbody>
 											<tr>
 												<td>
-													<input type="date" name="data[]" class="form-control border-dark" value="{{ $data }}" required>
+													<p class="h3 text-center">{{ \Carbon\Carbon::createFromFormat('Y-m-d',$data)->format('d/m/Y') }}</p>
 												</td>
 												<td>
 													<input type="text" name="descricao[]" class="form-control border-dark" placeholder="Descreva a despesa" required>
@@ -75,7 +75,7 @@
 		return [
 			'<tr>' +
 				'<td>' +
-					'<input type="date" name="data[]" class="form-control border-dark" value="{{ $data }}" required>' +
+					'<p class="h3 text-center">{{ \Carbon\Carbon::createFromFormat('Y-m-d',$data)->format('d/m/Y') }}</p>' +
 				'</td>' +
 				'<td>' +
 					'<input type="text" name="descricao[]" class="form-control border-dark" placeholder="Descreva a despesa"  required>' +

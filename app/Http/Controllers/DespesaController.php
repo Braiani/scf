@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Despesa;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreDespesa;
+use App\Http\Requests\UpdateDespesa;
 
 class DespesaController extends Controller
 {
@@ -41,18 +43,14 @@ class DespesaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDespesa $request, $data)
     {
-        $validated = $request->validate([
-            'data.*' => 'required|date|after:2013-01-01',
-            'descricao.*' => 'required',
-            'valor.*' => 'required'
-        ]);
+        $validated = $request->validated();
         
-        foreach ($validated['data'] as $key => $valor) {
+        foreach ($validated['descricao'] as $key => $value) {
             $despesa = Despesa::create([
-                'data' => $valor,
-                'descricao' => $validated['descricao'][$key],
+                'data' => $data,
+                'descricao' => $value,
                 'valor' => number_format($validated['valor'][$key], 2, '.', '')
             ]);
         }
@@ -86,9 +84,31 @@ class DespesaController extends Controller
      * @param  \App\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $despesa)
+    public function update(UpdateDespesa $request, $data)
     {
-        return $request;
+        $validated = $request->validated();
+        $despesa = Despesa::where('data', $data)->first();
+        
+        foreach ($validated['ids'] as $key => $valor) {
+            if ($valor == false) {
+                Despesa::create([
+                    'data' => $despesa->data,
+                    'descricao' => $validated['descricao'][$key],
+                    'valor' => number_format($validated['valor'][$key], 2, '.', ''),
+                ]);
+            } else {
+                Despesa::find($valor)->update([
+                    'descricao' => $validated['descricao'][$key],
+                    'valor' => number_format($validated['valor'][$key], 2, '.', ''),
+                ]);
+            }
+        }
+        
+        $request->session()->flash('sucesso', 'Despesa(s) salva com sucesso!');
+        return redirect()->route('consulta.despesa', [
+            'ano' => $despesa->data->format('Y'),
+            'mes' => $despesa->data->format('n') - 1
+        ]);
     }
 
     /**
