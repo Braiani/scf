@@ -48,7 +48,6 @@ $dataSelecionada = Carbon\Carbon::createFromDate($ano, $mes + 1, 1);
 													$diaDespesas = $despesas->filter(function ($item, $key) use ($dataLoop) {
 														return $item->data->isSameDay($dataLoop);
 													});
-													// dump($diaDespesas);
 												@endphp
 												@if ($diaDespesas->isEmpty())
 													<tr>
@@ -62,19 +61,23 @@ $dataSelecionada = Carbon\Carbon::createFromDate($ano, $mes + 1, 1);
 														</td>
 													</tr>
 												@else
-													@foreach ($diaDespesas as $despesa)
-														<tr>
-															<td>{{ $despesa->data->format('d/m/Y') }}</td>
-															<td>{{ $despesa->descricao }}</td>
-															<td>R${{ number_format($despesa->valor, 2, ',', '.') }}</td>
-															<td>
-																<a href="{{ route('despesas.edit', $despesa->data->format('Y-m-d')) }}"
-																	class="btn btn-success btn-sm">
-																	<i class="fa fa-edit"></i> Editar
-																</a>
-															</td>
-														</tr>
-													@endforeach
+													<tr>
+														<td>{{ $dataLoop->format('d/m/Y') }}</td>
+														<td>
+															<ul>
+															@foreach ($diaDespesas as $despesa)
+																<li>{{ $despesa->descricao }}</li>
+															@endforeach
+															</ul>
+														</td>
+														<td>R${{ number_format($diaDespesas->sum('valor'), 2, ',', '.') }}</td>
+														<td>
+															<a href="{{ route('despesas.edit', $dataLoop->format('Y-m-d')) }}"
+																class="btn btn-success btn-sm">
+																<i class="fa fa-edit"></i> Editar
+															</a>
+														</td>
+													</tr>
 												@endif
 												@php
 													$dataLoop->addDay();
