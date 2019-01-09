@@ -29,7 +29,7 @@
 						@if ($consulta['inicio'])
 						<div class="row">
 							<div class="col-6 p-2">
-								<a href="#" class="btn btn-block btn-pink">Gráfico Anual</a>
+								<a href="{{ route('relatorios.index') }}" class="btn btn-block btn-pink">Gráfico Anual</a>
 							</div>
 							<div class="col-6 p-2">
 								<a href="#" class="btn btn-block btn-pink">Gráfico Mensal</a>
