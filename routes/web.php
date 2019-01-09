@@ -27,6 +27,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/despesa/{despesa}', 'DespesaController@destroy')->name('despesas.delete');
         Route::get('/despesa/{ano}/{mes}', 'DespesaController@index')->name('consulta.despesa');
     });
+    Route::group(['prefix' => 'relatorios'], function () {
+        Route::get('/', 'RelatorioController@index')->name('relatorios.index');
+    });
     Route::group(['prefix' => 'perfil'], function () {
         Route::get('/', 'ProfileController@index')->name('profile.index');
         Route::put('/', 'ProfileController@update')->name('profile.update');

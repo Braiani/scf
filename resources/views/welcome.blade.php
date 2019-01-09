@@ -86,7 +86,7 @@
 
                 <div class="links">
                     <a href="{{ route('consulta') }}">Acessar sistema</a>
-                    <a href="https://brtechsistemas.com.br">BR tech Sistemas</a>
+                    <a href="http://brtechsistemas.com.br">BR tech Sistemas</a>
                     <a href="https://github.com/braiani">GitHub</a>
                 </div>
             </div>
