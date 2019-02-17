@@ -1,95 +1,115 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+    <title>Laravel</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+    <!-- Styles -->
+    <style>
+        html, body {
+            background-color: #fff;
+            background-image: url("https://source.unsplash.com/collection/1372373/1600x900");
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: black;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
+            overflow: auto;
+        }
 
-            .full-height {
-                height: 100vh;
-            }
+        body::before {
+            content: "";
+            z-index: -1;
+            width: auto;
+            height: auto;
+            background-image: inherit;
+            filter: blur(5px);
+        }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        .full-height {
+            height: 100vh;
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+        .position-ref {
+            position: relative;
+        }
 
-            .content {
-                text-align: center;
-            }
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
 
-            .title {
-                font-size: 84px;
-            }
+        .content {
+            text-align: center;
+        }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+        .title {
+            font-size: 84px;
+        }
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ route('consulta') }}">Início</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+        .links > a {
+            color: black;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Registrar</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+        .content, .top-right {
+            background-color: rgba(255,255,255,0.5);
+            padding: 15px;
+            -webkit-border-radius: 5%;
+            -moz-border-radius: 5%;
+            border-radius: 5%;
+        }
+        .m-b-md {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="flex-center position-ref full-height">
+    @if (Route::has('login'))
+        <div class="top-right links">
+            @auth
+                <a href="{{ route('consulta') }}">Início</a>
+            @else
+                <a href="{{ route('login') }}">Login</a>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    BR tech Sistemas
-                </div>
-
-                <div class="links">
-                    <a href="{{ route('consulta') }}">Acessar sistema</a>
-                    <a href="http://brtechsistemas.com.br">BR tech Sistemas</a>
-                    <a href="https://github.com/braiani">GitHub</a>
-                </div>
-            </div>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}">Registrar</a>
+                @endif
+            @endauth
         </div>
-    </body>
+    @endif
+
+    <div class="content">
+        <div class="title m-b-md">
+            BR tech Sistemas
+        </div>
+
+        <div class="links">
+            <a href="{{ route('consulta') }}">Acessar sistema</a>
+            <a href="http://brtechsistemas.com.br">BR tech Sistemas</a>
+            <a href="https://github.com/braiani">GitHub</a>
+        </div>
+    </div>
+</div>
+</body>
 </html>

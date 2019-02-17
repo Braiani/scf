@@ -46,7 +46,7 @@ class DespesaController extends Controller
     public function store(StoreDespesa $request, $data)
     {
         $validated = $request->validated();
-        
+
         foreach ($validated['descricao'] as $key => $value) {
             $despesa = Despesa::create([
                 'data' => $data,
@@ -55,10 +55,13 @@ class DespesaController extends Controller
             ]);
         }
         $request->session()->flash('sucesso', 'Despesa(s) salva com sucesso!');
-        return redirect()->route('consulta.despesa', [
+
+        $url = route('consulta.despesa', [
             'ano' => $despesa->data->format('Y'),
             'mes' => $despesa->data->format('n') - 1
         ]);
+
+        return redirect($url . '#' . $despesa->data->format('d'));
     }
 
     /**
@@ -88,7 +91,7 @@ class DespesaController extends Controller
     {
         $validated = $request->validated();
         $despesa = Despesa::where('data', $data)->first();
-        
+
         foreach ($validated['ids'] as $key => $valor) {
             if ($valor == false) {
                 Despesa::create([
@@ -103,12 +106,15 @@ class DespesaController extends Controller
                 ]);
             }
         }
-        
+
         $request->session()->flash('sucesso', 'Despesa(s) salva com sucesso!');
-        return redirect()->route('consulta.despesa', [
+
+        $url = route('consulta.despesa', [
             'ano' => $despesa->data->format('Y'),
             'mes' => $despesa->data->format('n') - 1
         ]);
+
+        return redirect($url . '#' . $despesa->data->format('d'));
     }
 
     /**
