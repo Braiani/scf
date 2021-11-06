@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LandPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LandPageController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/home', [HomeController::class, 'index'])->name('dashboard');
 });
