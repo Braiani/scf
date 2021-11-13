@@ -19,6 +19,6 @@ class EntryTypeController extends Controller
 
     public function index()
     {
-        dd($this->entryTypeService->messageReturn('Tipo', 'run'));
+        //
     }
 }

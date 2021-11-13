@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\EntryTypeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandPageController;
+use App\Http\Livewire\EntryType;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandPageController::class, 'index']);
 
-Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/type', [EntryTypeController::class, 'index'])->name('type.index');
+    Route::get('/type', EntryType::class)->name('type.index');
 });
