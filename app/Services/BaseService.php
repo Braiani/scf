@@ -6,9 +6,24 @@ class BaseService
 {
     public $model;
 
+    public function initiate()
+    {
+        return new $this->model();
+    }
+
     public function getAll()
     {
         return $this->model::all();
+    }
+
+    public function paginate($records = 15)
+    {
+        return $this->model::paginate($records);
+    }
+
+    public function search($field, $search)
+    {
+        return $this->model::where($field, 'LIKE', "%{$search}%");
     }
 
     public function getById($id)

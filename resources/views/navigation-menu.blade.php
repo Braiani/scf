@@ -19,6 +19,9 @@
                         <x-jet-nav-link href="{{ route('type.index') }}" :active="request()->routeIs('type.index')">
                             {{ __('Types') }}
                         </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('category') }}" :active="request()->routeIs('category')">
+                            {{ __('Categories') }}
+                        </x-jet-nav-link>
                     @endif
                 </div>
             </div>
