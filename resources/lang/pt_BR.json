@@ -616,5 +616,14 @@
     "You may not leave a team that you created.": "Você não pode sair de um time que você criou.",
     "Your email address is not verified.": "Seu endereço de e-mail não está verificado.",
     "Zambia": "Zambia",
-    "Zimbabwe": "Zimbabwe"
+    "Zimbabwe": "Zimbabwe",
+    "Title": "Título",
+    "Description": "Descrição",
+    "Active": "Ativo",
+    "Type": "Tipo",
+    "Select...": "Selecione...",
+    "Revenue": "Receita",
+    "revenue": "receita",
+    "Expense": "Despesa",
+    "expense": "despesa"
 }

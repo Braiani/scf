@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends BaseModel
 {
-    protected $fillable = ['title', 'description', 'active', 'is_entry'];
+    protected $fillable = ['title', 'description', 'active', 'entry'];
 
     protected $casts = [
         'active' => 'boolean',
-        'is_entry' => 'boolean',
     ];
 
     public function getIdFormattedAttribute()
@@ -22,5 +21,10 @@ class Category extends BaseModel
     public function getActiveColorAttribute()
     {
         return $this->active ? 'text-green-500 bg-green-100' : 'text-red-600 bg-red-100';
+    }
+
+    public function getEntryColorAttribute()
+    {
+        return $this->entry === 'revenue' ? 'text-green-500' : 'text-red-500';
     }
 }

@@ -17,5 +17,9 @@ class CategoryService extends BaseService
         return parent::search($field, $search)->paginate();
     }
 
+    public function create(array $data)
+    {
+        return $this->model::create($data);
+    }
 
 }

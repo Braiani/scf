@@ -21,7 +21,7 @@ class CategoryFactory extends Factory
             'title' => $this->faker->text(20),
             'description' => $this->faker->text(50),
             'active' => $this->faker->boolean(),
-            'is_entry' => $this->faker->boolean(),
+            'entry' => $this->faker->randomElement(['expense', 'revenue']),
         ];
     }
 }

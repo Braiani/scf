@@ -21,6 +21,7 @@
     </div>
 
     @include('livewire.create-form')
+    @include('livewire.confirmation-delete')
 
     <div class="py-4">
         <div class="w-3/4 mx-auto sm:px-20 lg:px-8">
@@ -52,14 +53,15 @@
                                         </span>
                                     </td>
                                     <td class="px-4 py-3 text-center border">
-                                        <span class="px-2 text-sm">{{ $category->is_entry ? 'Receita' : 'Despesa' }}</span>
+                                        <span class="px-2 text-sm uppercase {{$category->entry_color}}">{{ __($category->entry) }}</span>
                                     </td>
                                     <td class="px-4 py-3 border text-center">
                                         <button wire:click="edit('{{$category->id}}')"
                                             class="bg-blue-100 hover:bg-indigo-600 text-gray-600 px-3 rounded-lg">
                                             Editar
                                         </button>
-                                        <button class="bg-red-100 hover:bg-red-700 text-gray-600 px-3 rounded-lg">
+                                        <button wire:click="delete('{{$category->id}}')"
+                                            class="bg-red-100 hover:bg-red-700 text-gray-600 px-3 rounded-lg">
                                             Deletar
                                         </button>
                                     </td>

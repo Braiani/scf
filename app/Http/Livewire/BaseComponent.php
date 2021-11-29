@@ -22,4 +22,13 @@ class BaseComponent extends Component
     {
         empty($fields) ? $this->reset() : $this->reset($fields);
     }
+
+    public function sendToastMessage($type, $message, $title = '')
+    {
+        $this->dispatchBrowserEvent('alert', [
+            'type' => $type,
+            'title' => $title,
+            'message' => $message
+        ]);
+    }
 }

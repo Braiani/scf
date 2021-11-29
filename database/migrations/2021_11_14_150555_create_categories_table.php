@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->boolean('active')->default(true);
-            $table->boolean('is_entry');
+            $table->enum('entry', ['revenue', 'expense']);
 
             $table->softDeletes();
             $table->timestamps();

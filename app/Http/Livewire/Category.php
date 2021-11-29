@@ -8,11 +8,19 @@ use Livewire\WithPagination;
 class Category extends BaseComponent
 {
     use WithPagination;
-    public $title, $description, $active, $isEntry;
 
+    public $category;
     public $isEdit = false;
+    public $isConfirmationOpen = false;
 
     public $search;
+
+    protected $rules = [
+        'category.title' => 'required|string',
+        'category.description' => 'required|string',
+        'category.active' => 'nullable|boolean',
+        'category.entry' => 'required|in:expense,revenue',
+    ];
 
     public function render(CategoryService $categoryService)
     {
@@ -31,13 +39,26 @@ class Category extends BaseComponent
     public function edit($id, CategoryService $categoryService)
     {
         $this->isEdit = true;
-        $category = $categoryService->getById($id);
+        $this->category = $categoryService->getById($id);
         $this->openModalPopover();
     }
 
-    public function save()
+    public function save(CategoryService $categoryService)
     {
-
+        if ($this->isEdit){
+            $this->validate();
+            $this->category->save();
+        }else{
+            $this->validate();
+            $categoryService->create($this->category);
+        }
+        $this->resetCreateForm();
+        $this->sendToastMessage('success', 'Categoria salva com sucesso!');
         $this->closeModalPopover();
+    }
+
+    public function delete($id, CategoryService $categoryService)
+    {
+        $this->isConfirmationOpen = true;
     }
 }
