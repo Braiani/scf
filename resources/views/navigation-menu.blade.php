@@ -13,8 +13,16 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Home') }}
                     </x-jet-nav-link>
+                    @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                        <x-jet-nav-link href="{{ route('type.index') }}" :active="request()->routeIs('type.index')">
+                            {{ __('Types') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('category') }}" :active="request()->routeIs('category')">
+                            {{ __('Categories') }}
+                        </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
 
